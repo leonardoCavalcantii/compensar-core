@@ -26,15 +26,12 @@ app.use('/api', userRoutes);
 app.use('/api', authenticateToken, questionRoutes);
 app.use('/api', authenticateToken, competenceQuestionRoutes);
 
-mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.beoiebt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
-  .then(() => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch(err => {
-    console.log(process.env);
-    
-    console.error('Error connecting to MongoDB:', err.message)
-  });
+   const MONGO_URI = process.env.MONGO_URI
+     ?? `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.beoiebt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
+   mongoose.connect(MONGO_URI)
+     .then(() => {
+       console.log('Connected to MongoDB');
+       app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+     })
+     .catch(err => console.error('Error connecting to MongoDB:', err.message));
