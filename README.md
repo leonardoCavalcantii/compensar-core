@@ -35,7 +35,9 @@ git clone https://github.com/ufcg-lsd/compensar-gui.git
    node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"   # cole o resultado em PRIVATE_KEY
    ```
 
-   Se o frontend não estiver em `../compensar-gui`, defina `FRONTEND_PATH` no `.env`.
+   Se o frontend não estiver em `../compensar-gui`, defina `FRONTEND_PATH` no `.env`, com o caminho
+   relativo a esta pasta. Por exemplo, com o backend em `back/compensar-core` e o frontend em
+   `front/compensar-gui`, use `FRONTEND_PATH=../../front/compensar-gui`.
 
 2. Suba tudo:
 
