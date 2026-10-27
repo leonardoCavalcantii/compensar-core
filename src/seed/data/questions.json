@@ -1,0 +1,55 @@
+[
+  {
+    "title": "Questão 141 da prova azul do segundo dia do Enem 2012",
+    "statement": "Um forro retangular de tecido traz em sua etiqueta a informação de que encolherá após a primeira lavagem mantendo, entretanto, seu formato. A figura a seguir mostra as medidas originais do forro e o tamanho do encolhimento (x) no comprimento e (y) na largura. A expressão algébrica que representa a área do forro após ser lavado é (5 – x) (3 – y). Nessas condições, a área perdida do forro, após a primeira lavagem, será expressa por:",
+    "image": "https://d2q576s0wzfxtl.cloudfront.net/2017/08/08150112/141-1.png",
+    "type": "mathematics",
+    "font": "enem",
+    "year": 2012,
+    "alternatives": ["2xy", "15 − 3x", "15 − 5y", "−5y − 3x", "5y + 3x − xy"],
+    "response": "5y + 3x − xy",
+    "competences": ["Coleta de Dados", "Análise de Dados"]
+  },
+  {
+    "title": "Média de idades com a chegada de uma nova pessoa",
+    "statement": "Em um grupo de pessoas, as idades são: 10, 12, 15 e 17 anos. Caso uma pessoa de 16 anos junte-se ao grupo, o que acontece com a média das idades do grupo?",
+    "type": "mathematics",
+    "font": "other",
+    "response": "A média inicial é (10 + 12 + 15 + 17) / 4 = 13,5 anos. Com a nova pessoa, passa a (10 + 12 + 15 + 17 + 16) / 5 = 14 anos. A média aumenta 0,5 ano, porque a idade de quem entrou é maior que a média anterior.",
+    "competences": ["Abstração", "Análise de Dados", "Simulação"]
+  },
+  {
+    "title": "Média ponderada de um aluno",
+    "statement": "Um professor aplica o seguinte critério de avaliação: a prova tem peso 4, a lista de exercícios tem peso 2 e a apresentação de trabalho tem peso 4. Um aluno tirou 6,0 na prova, 9,0 na lista e 7,0 na apresentação. Qual é a média final desse aluno?",
+    "type": "mathematics",
+    "font": "other",
+    "alternatives": ["6,8", "7,0", "7,3", "7,5", "8,0"],
+    "response": "7,0",
+    "competences": ["Abstração", "Análise de Dados", "Decomposição de Problemas"]
+  },
+  {
+    "title": "Fornos funcionando ao mesmo tempo",
+    "statement": "Uma pizzaria tem 3 fornos, e cada forno assa uma pizza por vez em 12 minutos. A pizzaria recebeu um pedido de 9 pizzas. Usando os três fornos ao mesmo tempo, qual é o menor tempo para assar todas as pizzas?",
+    "type": "mathematics",
+    "font": "school",
+    "alternatives": ["12 minutos", "27 minutos", "36 minutos", "108 minutos"],
+    "response": "36 minutos",
+    "competences": ["Paralelismo", "Decomposição de Problemas", "Simulação"]
+  },
+  {
+    "title": "Procedimento para encontrar a maior nota",
+    "statement": "Uma professora quer descobrir a maior nota de uma turma de 40 alunos olhando a lista de notas uma única vez. Escreva, passo a passo, um procedimento que ela possa seguir e que também poderia ser executado por uma planilha ou por um programa de computador.",
+    "type": "mathematics",
+    "font": "school",
+    "response": "Guardar a primeira nota como a maior até agora. Para cada nota seguinte, comparar com a guardada e, se for maior, substituí-la. No fim da lista, a nota guardada é a maior. Numa planilha, a função MÁXIMO faz o mesmo.",
+    "competences": ["Algoritmos e Procedimentos", "Automação", "Decomposição de Problemas"]
+  },
+  {
+    "title": "Notas bimestrais em gráfico de barras",
+    "statement": "As notas de um aluno nos quatro bimestres foram 7, 8, 6 e 9. Organize esses dados em uma tabela e represente-os em um gráfico de barras. Em qual bimestre o aluno teve o melhor desempenho?",
+    "type": "mathematics",
+    "font": "school",
+    "response": "Tabela com as colunas Bimestre (1º a 4º) e Nota (7, 8, 6 e 9). No gráfico, os bimestres ficam no eixo horizontal e as notas no vertical, uma barra por bimestre. O melhor desempenho foi no 4º bimestre, com nota 9.",
+    "competences": ["Representação de Dados", "Coleta de Dados", "Análise de Dados"]
+  }
+]
