@@ -1,0 +1,73 @@
+# ComPensar completo para desenvolvimento: MongoDB, carga inicial (seed), backend e frontend.
+#
+#   docker compose up
+#
+# O frontend é um repositório separado (compensar-gui). Por padrão ele é procurado ao lado
+# deste repositório (../compensar-gui); para outro lugar, defina FRONTEND_PATH no .env.
+# Variáveis lidas aqui (todas no .env.example): PRIVATE_KEY (obrigatória), FRONTEND_PATH,
+# MONGO_PORT, BACKEND_PORT e FRONTEND_PORT.
+name: compensar
+
+services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "${MONGO_PORT:-27017}:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # Roda uma vez a cada "up" e termina. É idempotente: não duplica dados.
+  seed:
+    build: .
+    command: ["npm", "run", "seed"]
+    environment:
+      # Dentro do compose o banco é o serviço "mongo", não o localhost do .env de quem roda sem Docker.
+      MONGO_URI: mongodb://mongo:27017/compensar
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  backend:
+    build: .
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    environment:
+      PORT: 8080
+      MONGO_URI: mongodb://mongo:27017/compensar
+      PRIVATE_KEY: ${PRIVATE_KEY:?defina PRIVATE_KEY no .env (veja o .env.example)}
+    volumes:
+      # Código montado: depois de editar, "docker compose restart backend" (npm run dev não recarrega sozinho).
+      - ./src:/app/src
+    depends_on:
+      mongo:
+        condition: service_healthy
+      seed:
+        condition: service_completed_successfully
+
+  frontend:
+    build: ${FRONTEND_PATH:-../compensar-gui}
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    environment:
+      # As rotas de src/pages/api do frontend chamam o backend pela rede do compose.
+      BASE_API_URL: http://backend:8080
+      # Faz o next dev perceber mudanças em arquivos montados a partir do Windows e do macOS.
+      WATCHPACK_POLLING: "true"
+      NEXT_TELEMETRY_DISABLED: "1"
+    volumes:
+      - ${FRONTEND_PATH:-../compensar-gui}:/app
+      # node_modules e .next ficam no container, sem misturar com os da sua máquina.
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
+    # Mesmo volume do container avulso antigo (compensar-mongo), para não perder os dados locais.
+    name: compensar-mongo-data

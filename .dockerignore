@@ -1,0 +1,13 @@
+node_modules
+dist
+coverage
+.git
+.github
+.vercel
+.vscode
+*.log
+
+# Variáveis locais nunca entram na imagem; o compose passa a configuração.
+.env
+.env.*
+!.env.example
