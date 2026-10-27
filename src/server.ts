@@ -3,19 +3,20 @@ dotenv.config();
 
 import mongoose from 'mongoose';
 import app from './app';
+import { loadConfig } from './config';
 
-const PORT = process.env.PORT || 8080;
+const startServer = async () => {
+  const { port, mongoUri } = loadConfig();
 
-const MONGO_URI = process.env.MONGO_URI
-  ?? `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.beoiebt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+  await mongoose.connect(mongoUri);
+  console.log('Connected to MongoDB');
 
-mongoose.connect(MONGO_URI)
-  .then(() => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch(err => {
-    console.error('Error connecting to MongoDB:', err.message)
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
   });
+};
+
+startServer().catch(err => {
+  console.error('Erro ao iniciar o servidor:', err.message);
+  process.exit(1);
+});

@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 
 import jwt from 'jsonwebtoken';
 import { User } from '../models/user.model';
+import { getPrivateKey } from '../config';
+import { getErrorObject } from '../utils/error';
 
 
 declare global {
@@ -20,7 +22,15 @@ const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
     return res.status(401).json({ message: 'Authentication token not provided.' });
 
 
-  jwt.verify(token, process?.env?.PRIVATE_KEY || "", (err, user) => {
+  let privateKey: string;
+  try {
+    privateKey = getPrivateKey();
+  } catch (err) {
+    const error = getErrorObject(err);
+    return res.status(error.status).json(error);
+  }
+
+  jwt.verify(token, privateKey, (err, user) => {
     if (err) {
       return res.status(498).json({ message: 'Invalid token.' });
     } else {

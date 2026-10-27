@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import UserModel from '../models/user.model';
 import { compareHash } from '../utils/securityData';
 import { getErrorObject } from '../utils/error';
+import { getPrivateKey } from '../config';
 
 import jwt from 'jsonwebtoken';
 
@@ -21,7 +22,7 @@ router.post('/login', async (req: Request, res: Response) => {
     
     const isMatch = await compareHash(password, user.password);
     if (isMatch) {
-      const token = jwt.sign({ id: user.id }, process.env.PRIVATE_KEY || "", { expiresIn: '24h' });
+      const token = jwt.sign({ id: user.id }, getPrivateKey(), { expiresIn: '24h' });
       return res.status(200).json({ token });
     } else
       return res.status(401).json({ message: 'Credenciais inválidas' });
